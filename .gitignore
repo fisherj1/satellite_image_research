@@ -1,0 +1,15 @@
+runs
+good_runs
+data/test_model_ds_persent_64
+data/test_images
+data/test_folder
+data/240_new_april
+data/240_1
+data/240
+data/64
+data/s1a-ew-grd-hv-20200709t030543-20200709t030619-033372-03ddcb-002.tiff
+data/s1a-ew-grd-hh-20200709t030543-20200709t030619-033372-03ddcb-001.tiff
+data/result.tif
+data/full_segment.tif
+test_dataset.py
+pictures, graphs
