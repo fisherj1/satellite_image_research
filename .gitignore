@@ -1,5 +1,6 @@
 runs
 good_runs
+data/
 data/test_model_ds_persent_64
 data/test_images
 data/test_folder

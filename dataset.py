@@ -87,7 +87,7 @@ class DataLoaderSegmentation(Dataset):
         for img_name in self.input_hh_files:
             self.autocor_hv_hh_files.append(os.path.join(data_path,'autocors_hv_hh', os.path.basename(img_name)))
         for img_name in self.input_hh_files:
-            self.classes_files.append(os.path.join(data_path,'classes', os.path.basename(img_name)+'.npy'))
+            self.classes_files.append(os.path.join(data_path,'classes', os.path.basename(img_name)))#+'.npy'))
         
 
         self.transforms = transforms
@@ -121,11 +121,12 @@ class DataLoaderSegmentation(Dataset):
 
             input_hh = self.transforms['input'](input_hh)
             input_hv = self.transforms['input'](input_hv)
-
+            print(np.array(autocor_hv).shape)
             autocor_hh = self.transforms['autocor'](autocor_hh)
             autocor_hv = self.transforms['autocor'](autocor_hv)
             autocor_hh_hv = self.transforms['autocor'](autocor_hh_hv)
             autocor_hv_hh = self.transforms['autocor'](autocor_hv_hh)
+            print(autocor_hv.shape)
 
             classes = self.transforms['classes'](classes)
             target = self.transforms['target'](target)    
