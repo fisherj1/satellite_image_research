@@ -61,28 +61,22 @@ if __name__ == "__main__":
 
     for k, i in enumerate(os.listdir(os.path.join(args.dir_in, 'input_hh'))):
       print(k)
-      #f, axarr = plt.subplots(4,2)
+      #f, axarr = plt.subplots(3,2)
 
       img_hh = Image.open(os.path.join(args.dir_in, 'input_hh', i))
       img_hv = Image.open(os.path.join(args.dir_in, 'input_hv', i))
       """
-      temp_img3 = np.array(img_hh)
-      temp_img4 = np.array(img_hv)
       axarr[0,0].imshow(transforms_dict['input'](img_hh).squeeze(), cmap='gray')
       axarr[0,1].imshow(transforms_dict['input'](img_hv).squeeze(), cmap='gray')
       """
 
-
       enhancer1 = ImageEnhance.Contrast(img_hh)
       enhancer2 = ImageEnhance.Contrast(img_hv)
         
-      factor = 3 + random.random()*2 # more contrast image
+      factor = random.random()*0.1 # more contrast image
       img_hh = enhancer1.enhance(factor)
       img_hv = enhancer2.enhance(factor)  
-      """
-      axarr[1,0].imshow(transforms_dict['input'](img_hh).squeeze(), cmap='gray')
-      axarr[1,1].imshow(transforms_dict['input'](img_hv).squeeze(), cmap='gray')
-      """
+
       out_input1 = os.path.join(args.dir_out, 'input_hh', i)
       out_input2 = os.path.join(args.dir_out, 'input_hv', i)
       out1 = os.path.join(args.dir_out + 'autocors_hh', i)
@@ -93,9 +87,9 @@ if __name__ == "__main__":
       out_seg = os.path.join(args.dir_out, 'target', i)
       
      
-      matplotlib.image.imsave(out_input1, img_hh)
-      matplotlib.image.imsave(out_input2, img_hv)
-        
+      matplotlib.image.imsave(out_input1, np.array(img_hh))
+      matplotlib.image.imsave(out_input2, np.array(img_hv))
+      
       device = torch.device('cuda:1')
       
       temp_img = torch.Tensor(np.array(img_hh).astype('float64')).to(device)
@@ -133,7 +127,7 @@ if __name__ == "__main__":
       print("lol")
       matplotlib.image.imsave(out4, self_ac(temp_img2, kernel1))
       print("lol")
-
+      print(i+'.npy')
       shutil.copy(os.path.join(args.dir_in, 'classes', i+'.npy'), out_classes)
       shutil.copy(os.path.join(args.dir_in, 'target', i), out_seg)
       

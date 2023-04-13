@@ -11,7 +11,7 @@ import torch
 # Custom
 import model
 import dataset
-from sklearn.metrics import multilabel_confusion_matrix
+from sklearn.metrics import multilabel_confusion_matrix, roc_auc_score
 import common
 
 
@@ -78,14 +78,15 @@ if __name__ == "__main__":
 	model.to(device)
 	
 	ds = dataset.get_test_dataloader(args)
+	classes_list = []
+	preds_list = []
 	
 	table = None
 	a = args.a
 	
 	table = np.zeros((4, 2, 2)) # [TN, FP]
                                 # [FN, TP]
-	
-	
+
 	for i in range(ds.__len__()):
 		print(i)
 		batch_i_hh, batch_i_hv, batch_a_hh, batch_a_hv, batch_a_hh_hv, batch_a_hv_hh, batch_t, batch_c = ds.__getitem__(i)
@@ -97,6 +98,8 @@ if __name__ == "__main__":
 		batch_a_hv_hh = batch_a_hv_hh.unsqueeze(dim=0).to(device)
 		classes = batch_c.squeeze()
 		preds = model(batch_i_hh, batch_i_hv, batch_a_hh, batch_a_hv, batch_a_hh_hv, batch_a_hv_hh).squeeze()
+		classes_list.append(classes.detach().cpu().numpy())
+		preds_list.append(preds.detach().cpu().numpy())
 		for i in range(preds.shape[0]):
 			if classes[i] == 1:
 				if preds[i] > a:
@@ -108,11 +111,10 @@ if __name__ == "__main__":
 					table[i, 0,1] += 1
 				else:
 					table[i, 0,0] += 1
-                
-	metrics = my_f1(table)
-	macro = f_macro(table)
-	micro = f_micro(table)
-	print(metrics, macro, micro)
+					
+	print("ROC_AUC_macro: ", roc_auc_score(classes_list, preds_list, average='macro'))
+	print("ROC_AUC_micro: ", roc_auc_score(classes_list, preds_list, average='micro'))
+	print("F1: ", my_f1(table), "F1_macro: ", f_macro(table), "F1_micro: ", f_micro(table))
 
 """
 model_parameters = filter(lambda p: p.requires_grad, model.parameters())

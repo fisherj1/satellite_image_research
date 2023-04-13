@@ -451,6 +451,6 @@ class AlexNetNOT(nn.Module):
 
 
 def get_model():
-    model = AlexNet()
+    model = AlexNetNOT()
 
     return model

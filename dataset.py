@@ -121,13 +121,10 @@ class DataLoaderSegmentation(Dataset):
 
             input_hh = self.transforms['input'](input_hh)
             input_hv = self.transforms['input'](input_hv)
-            print(np.array(autocor_hv).shape)
             autocor_hh = self.transforms['autocor'](autocor_hh)
             autocor_hv = self.transforms['autocor'](autocor_hv)
             autocor_hh_hv = self.transforms['autocor'](autocor_hh_hv)
             autocor_hv_hh = self.transforms['autocor'](autocor_hv_hh)
-            print(autocor_hv.shape)
-
             classes = self.transforms['classes'](classes)
             target = self.transforms['target'](target)    
             return (input_hh, input_hv, autocor_hh, autocor_hv, autocor_hh_hv, autocor_hv_hh, target, classes)
