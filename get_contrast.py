@@ -73,7 +73,7 @@ if __name__ == "__main__":
       enhancer1 = ImageEnhance.Contrast(img_hh)
       enhancer2 = ImageEnhance.Contrast(img_hv)
         
-      factor = random.random()*0.1 # more contrast image
+      factor = 3+2*random.random() # more contrast image
       img_hh = enhancer1.enhance(factor)
       img_hv = enhancer2.enhance(factor)  
 
@@ -85,6 +85,7 @@ if __name__ == "__main__":
       out4 = os.path.join(args.dir_out + 'autocors_hv_hh', i)
       out_classes = os.path.join(args.dir_out, 'classes', i)
       out_seg = os.path.join(args.dir_out, 'target', i)
+      
       
      
       matplotlib.image.imsave(out_input1, np.array(img_hh))

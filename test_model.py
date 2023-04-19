@@ -56,8 +56,8 @@ def f_micro(matrix):
 def my_f1(matrix):
 	f = 0
 	for i in range(matrix.shape[0]):
-		pr = 0
-		rc = 0
+		pr = 1
+		rc = 1
 		if (matrix[i, 1,1]+matrix[i, 0,1]) != 0:
 			pr = matrix[i, 1,1]/(matrix[i, 1,1]+matrix[i, 0,1])
 		rc = matrix[i, 1,1]/(matrix[i, 1,1]+matrix[i, 1,0])

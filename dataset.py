@@ -160,7 +160,7 @@ def get_dataloader(cfg):
     train_dataset = DataLoaderSegmentation(data_path=train_dir, transforms=transform_dict, loader=image_loader)
     
     valid_dataset = DataLoaderSegmentation(data_path=valid_dir, transforms=transform_dict, loader=image_loader)
-                     
+                     python3
     train_dataloader = DataLoader(train_dataset, batch_size=cfg.train_bs, shuffle=True)
     valid_dataloader = DataLoader(valid_dataset, batch_size=cfg.train_bs, shuffle=False)
 
